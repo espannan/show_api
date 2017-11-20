@@ -33,7 +33,7 @@ class Show(models.Model):
 
     class Meta:
         unique_together = (
-            ('show_venue', 'headliner', 'showtime', 'removed_at')
+            ('show_venue', 'headliner', 'showtime'),
         )
 
     def delete(self):
@@ -42,6 +42,14 @@ class Show(models.Model):
         """
         self.removed_at = timezone.now()
         self.save()
+
+    def _delete(self):
+        """
+        Actually delete a Show instance
+
+        Intended for internal use.
+        """
+        super(models.Model, self).delete()
 
     def __str__(self):
         return '{} ({})'.format(self.headliner, self.show_venue.name)
