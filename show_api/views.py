@@ -36,19 +36,19 @@ class ShowDetail(APIView):
     Retrieve, update or delete a show.
     """
 
-    def get_object(self, pk):
+    def _get_object(self, pk):
         try:
             return Show.objects.get(pk=pk)
         except Show.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
-        show = self.get_object(pk)
+        show = self._get_object(pk)
         serializer = ShowSerializer(show)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        show = self.get_object(pk)
+        show = self._get_object(pk)
         serializer = ShowSerializer(show, data=request.data)
 
         if serializer.is_valid():
@@ -58,7 +58,7 @@ class ShowDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        show = self.get_object(pk)
+        show = self._get_object(pk)
         show.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -87,19 +87,19 @@ class ShowVenueDetail(APIView):
     Retrieve, update or delete a show venue.
     """
 
-    def get_object(self, pk):
+    def _get_object(self, pk):
         try:
             return ShowVenue.objects.get(pk=pk)
         except ShowVenue.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
-        venue = self.get_object(pk)
+        venue = self._get_object(pk)
         serializer = ShowVenueSerializer(venue)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        venue = self.get_object(pk)
+        venue = self._get_object(pk)
         serializer = ShowVenueSerializer(venue, data=request.data)
 
         if serializer.is_valid():
@@ -109,6 +109,6 @@ class ShowVenueDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        venue = self.get_object(pk)
+        venue = self._get_object(pk)
         venue.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
