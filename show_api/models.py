@@ -31,6 +31,11 @@ class Show(models.Model):
 
     show_venue = models.ForeignKey('ShowVenue')
 
+    class Meta:
+        unique_together = (
+            ('show_venue', 'headliner', 'showtime', 'removed_at')
+        )
+
     def delete(self):
         """
         Set a show as inactive rather than deleting from the database
