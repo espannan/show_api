@@ -2,7 +2,9 @@
 from __future__ import unicode_literals
 
 from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,14 +14,14 @@ from .serializers import ShowSerializer
 from .serializers import ShowVenueSerializer
 
 
-class ShowList(APIView):
+class ShowList(ListAPIView):
     """
     List all shows, or create a new show.
     """
-    def get(self, request, format=None):
-        shows = Show.objects.active()
-        serializer = ShowSerializer(shows, many=True)
-        return Response(serializer.data)
+    queryset = Show.objects.active()
+    serializer_class = ShowSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('show_venue', 'headliner')
 
     def post(self, request, format=None):
         serializer = ShowSerializer(data=request.data)
