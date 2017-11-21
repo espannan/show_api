@@ -5,6 +5,7 @@ from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -69,6 +70,8 @@ class ShowVenueList(APIView):
     """
     List all show venues, or create a new venue.
     """
+    permission_classes = (AllowAny,)
+
     def get(self, request, format=None):
         venues = ShowVenue.objects.all()
         serializer = ShowVenueSerializer(venues, many=True)
