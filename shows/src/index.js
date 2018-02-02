@@ -10,12 +10,13 @@ superagent
   .set('Content-type', 'application/json')
   .set('Accept', 'application/json')
   .end((err, res) => {
-    //response = JSON.parse(res.text);
-    debugger
+    if (err) {
+
+    } else {
+      response = JSON.parse(res.text);
+      ReactDOM.render(
+        <VenueCollection data={response}/>,
+        document.getElementById('root')
+      );
+    }
   });
-/*
-ReactDOM.render(
-  <VenueCollection />,
-  document.getElementById('root')
-);
-*/

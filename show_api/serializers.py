@@ -22,9 +22,16 @@ class ShowSerializer(serializers.ModelSerializer):
 
 
 class ShowVenueSerializer(serializers.ModelSerializer):
+    show_set = ShowSerializer(many=True)
+
     class Meta:
         model = ShowVenue
-        fields = '__all__'
+        fields = (
+            'url',
+            'name',
+            'address',
+            'show_set',
+        )
 
     def __init__(self, *args, **kwargs):
         kwargs['partial'] = True
