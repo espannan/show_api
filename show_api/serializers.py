@@ -22,11 +22,12 @@ class ShowSerializer(serializers.ModelSerializer):
 
 
 class ShowVenueSerializer(serializers.ModelSerializer):
-    show_set = ShowSerializer(many=True)
+    show_set = ShowSerializer(many=True, read_only=True)
 
     class Meta:
         model = ShowVenue
         fields = (
+            'id',
             'url',
             'name',
             'address',
