@@ -11,6 +11,9 @@ If you are first setting up, run:
 ```bash
 $ mkvirtualenv show_api
 $ pip install -r requirements.txt
+$ cd shows
+$ npm install
+$ cd ../
 ```
 
 If returning and updating requirements, run:
